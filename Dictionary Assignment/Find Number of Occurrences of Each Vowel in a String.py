@@ -7,5 +7,6 @@ for ch in string:
         vowels[ch] += 1
 
 print("\nVowel Occurrences:")
+
 for key, value in vowels.items():
     print(key, ":", value)

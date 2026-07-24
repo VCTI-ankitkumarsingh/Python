@@ -8,5 +8,6 @@ for ch in string:
         count[ch] = count.get(ch, 0) + 1
 
 print("\nLetter Occurrences:")
+
 for key, value in sorted(count.items()):
     print(key, ":", value)
