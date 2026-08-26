@@ -30,6 +30,9 @@ Class diagram covering inheritance, composition, association, and payment abstra
 ### 'polymorphism_explanation.md'
 Short explanation of polymorphism and why it removes vehicle-type conditionals.
 
+### 'discussion_questions_answers.md'
+Answers to the discussion questions included in the assignment.
+
 ### 'Output.txt'
 Captured console output from the complete application and CLI workflow.
 
