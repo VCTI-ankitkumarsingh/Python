@@ -1,6 +1,6 @@
 # Class Diagram
 
-'''
+```
 classDiagram
 
 class Vehicle {
@@ -97,4 +97,4 @@ Customer "1" --> "0..*" Rental : rental history
 RentalService --> Vehicle : manages
 RentalService --> Customer : manages
 RentalService --> Rental : manages
-'''
+```
