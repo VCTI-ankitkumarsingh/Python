@@ -1,6 +1,6 @@
 # Class Diagram
 
-```
+```mermaid
 classDiagram
 
 class Vehicle {
@@ -15,8 +15,8 @@ class Vehicle {
     +calculate_rental_cost(days)*
     +vehicle_type()*
     +display_details()
-    +mark_as_rented(available_from)
-    +mark_as_available(available_from)
+    +mark_as_rented()
+    +mark_as_available()
 }
 
 class Car
@@ -59,21 +59,25 @@ class Rental {
     -actual_return_date
     -days
     -base_amount
+    -extra_days
+    -extra_rental_charge
     -late_fee
     -final_amount
     -payment
     -invoice
     -status
-    +calculate_final_amount(return_date)
-    +complete_rental(return_date)
+    +calculate_final_amount()
+    +complete_rental()
 }
 
 class Invoice {
     -rental_id
+    -rental_days
+    -extra_days
     -base_amount
+    -extra_rental_charge
     -late_fee
     -final_amount
-    -generated_on
     +generate()
     +display()
 }
@@ -89,12 +93,12 @@ class RentalService {
     +return_vehicle()
 }
 
-Rental --> Customer : contains
-Rental --> Vehicle : contains
-Rental --> PaymentProcessor : uses
-Rental --> Invoice : creates
-Customer "1" --> "0..*" Rental : rental history
-RentalService --> Vehicle : manages
-RentalService --> Customer : manages
-RentalService --> Rental : manages
+Rental --> Customer
+Rental --> Vehicle
+Rental --> PaymentProcessor
+Rental --> Invoice
+Customer "1" --> "0..*" Rental
+RentalService --> Vehicle
+RentalService --> Customer
+RentalService --> Rental
 ```

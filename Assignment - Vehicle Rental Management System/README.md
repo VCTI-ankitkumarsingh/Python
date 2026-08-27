@@ -1,130 +1,94 @@
 # Vehicle Rental Management System
 
-## Project overview
+## Structure
 
-This is a console-based Python implementation of the **Vehicle Rental Management System** OOP case study.
+```text
+vehicle_rental_management_system/
+│
+├── main.py
+├── input_data.txt
+├── README.md
+│
+└── vehicle_rental/
+    ├── __init__.py
+    ├── exceptions.py
+    ├── payment.py
+    ├── vehicle.py
+    ├── customer.py
+    ├── invoice.py
+    ├── rental.py
+    ├── service.py
+    ├── data_loader.py
+    └── cli.py
+```
 
-The implementation follows the assignment requirements for:
-- Vehicle management
-- Customer management
-- Rental and return workflow
-- Late-fee calculation
-- Payment abstraction
-- Encapsulation
-- Abstraction
-- Inheritance
-- Polymorphism
-- Method overriding
-- Search
-- Composition
-- Exception handling
+## Input data
 
-## Main files
+Vehicle and customer details are loaded from `input_data.txt`.
 
-### `vehicle_rental_system.py`
-Complete application and CLI.
+The file has two sections:
 
-### `class_diagram.md`
-Class diagram covering inheritance, composition, association, and payment abstraction.
+```text
+[VEHICLES]
+...
+[CUSTOMERS]
+...
+```
 
-### `polymorphism_explanation.md`
-Short explanation of polymorphism and why it removes vehicle-type conditionals.
+No vehicle or customer records are hard-coded inside `main.py`.
 
-### `discussion_questions_answers.md`
-Answers to the discussion questions included in the assignment.
+## Run
 
-### `Output.txt`
-Captured console output from the complete application and CLI workflow.
+From the project directory:
+
+```bash
+python main.py
+```
 
 ## Imports
 
-The application uses only two standard-library modules:
+The application uses only Python standard-library modules. No external packages are required.
+
+Core imports are limited to:
 
 ```python
 from abc import ABC, abstractmethod
 from datetime import date, timedelta
+from pathlib import Path
 ```
 
-No external packages are required.
+## Main behavior
 
-## How to run
-
-```bash
-python vehicle_rental_system.py
-```
-
-The CLI:
-1. Starts with registered customers.
-2. Asks each customer how many vehicles they want.
-3. Shows only vehicle types that still have available vehicles.
-4. Shows available vehicles and availability dates.
-5. Asks for rental days.
-6. Allows Card or UPI payment.
-7. Confirms a rental only after payment succeeds.
-8. Marks the selected vehicle unavailable.
-9. Shows its expected availability date.
-10. Requests actual return dates.
-11. Calculates late fees.
-12. Produces one consolidated final invoice for each customer.
-13. Shows rental history and vehicle availability after return.
-
-## Run tests
-
-```bash
-python -m unittest -v
-```
+- Customers are loaded from `input_data.txt`.
+- The CLI asks each customer how many vehicles they want.
+- Only currently available vehicle types are shown.
+- Booked vehicles are not offered to later customers.
+- Negative or zero rental duration is rejected before payment.
+- Card and UPI are available as payment choices.
+- Payment must succeed before a vehicle is marked rented.
+- Each rented vehicle has an expected return date.
+- The actual return date is entered through the CLI.
+- Invalid return dates cause a retry instead of terminating the application.
+- Each late day is charged at the normal daily rental rate plus a 20% late fee.
+- The final customer invoice consolidates all rented vehicles.
+- Returned vehicles become available again on their actual return date.
 
 ## OOP concepts
 
-### Classes and objects
-The core classes are `Vehicle`, `Car`, `Bike`, `Van`, `Customer`, `Rental`, `Invoice`, `RentalService`, and payment classes.
-
-### Encapsulation
-State is held in `_private` attributes with controlled access through properties and methods.
-
 ### Abstraction
-`Vehicle` is an abstract base class and `PaymentProcessor` defines a common payment contract.
+`Vehicle` and `PaymentProcessor` define common contracts.
 
 ### Inheritance
 `Car`, `Bike`, and `Van` inherit from `Vehicle`.
 
 ### Polymorphism
-`calculate_rental_cost(days)` behaves differently for Car, Bike, and Van. `RentalService` calls it through the `Vehicle` reference, so it does not need a vehicle-type conditional.
+Each vehicle implements `calculate_rental_cost()` differently. The rental service calls the method through the common `Vehicle` interface.
 
-### Method overriding
-`Car`, `Bike`, and `Van` override `calculate_rental_cost()`, `vehicle_type()`, and `display_details()`.
-
-### Search / method overloading
-Python does not provide Java-style compile-time method overloading by signature. The `search_vehicles()` method supports multiple search forms using optional parameters: vehicle ID, vehicle type, and price range.
+### Encapsulation
+Important state is kept in internal attributes and accessed through properties and methods.
 
 ### Composition
-A `Rental` contains references to a `Customer`, `Vehicle`, payment processor, and generated invoice.
+`Rental` works with a `Customer`, `Vehicle`, `PaymentProcessor`, and generated `Invoice`.
 
 ### Exception handling
-The program handles:
-- invalid rental days
-- empty required values
-- unavailable vehicles
-- payment failure
-- invalid return dates
-- return before rental start
-- missing rental IDs
-
-## Business rules implemented
-
-- Rental days must be greater than zero.
-- Unavailable vehicles cannot be rented.
-- A vehicle cannot be rented by two customers simultaneously.
-- Registration number is required.
-- Payment must succeed before confirmation.
-- Sensitive card information is represented only by masked data.
-- Returned vehicles become available again.
-- Late fee = late days × 20% × vehicle daily rental rate.
-
-## Van service charge
-
-The assignment requires a van service charge but does not define its amount. The implementation therefore makes the service charge configurable for each `Van`. The demonstration uses Rs. 500.
-
-## Invoice behavior
-
-A `Rental` calculates its own final amount on return. A customer`s CLI invoice consolidates the base amount, late fees, and final amounts across all vehicles rented by that customer.
+Custom exceptions handle invalid inputs, unavailable vehicles, payment failures, and missing rentals.

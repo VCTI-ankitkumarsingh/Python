@@ -1,0 +1,23 @@
+# Vehicle Rental Management System input data
+#
+# VEHICLE FORMAT
+# Car | Vehicle ID | Registration | Brand | Model | Daily Rate
+# Bike | Vehicle ID | Registration | Brand | Model | Daily Rate
+# Van | Vehicle ID | Registration | Brand | Model | Daily Rate | Service Charge
+#
+# CUSTOMER FORMAT
+# Customer ID | Name | Email | Driving Licence Number
+
+[VEHICLES]
+
+Car | V101 | MH12AB1234 | Toyota | Camry | 2000
+Car | V104 | MH12GH3456 | Honda | City | 1800
+Bike | V102 | MH12CD5678 | Yamaha | FZ | 700
+Bike | V105 | MH12JK7890 | Honda | Shine | 600
+Van | V103 | MH12EF9012 | Tata | Winger | 3000 | 500
+
+[CUSTOMERS]
+
+C101 | Ankit Singh | ankit@example.com | DL-101
+C102 | Shahbaz Athar | shahbaz@example.com | DL-102
+C103 | Ashish Tandi | ashish@example.com | DL-103
