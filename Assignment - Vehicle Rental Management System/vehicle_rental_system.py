@@ -317,10 +317,19 @@ class Customer:
 
 class Invoice:
     def __init__(
-        self, rental_id, base_amount, extra_rental_charge,
-        late_fee, final_amount, generated_on
+        self,
+        rental_id,
+        rental_days,
+        extra_days,
+        base_amount,
+        extra_rental_charge,
+        late_fee,
+        final_amount,
+        generated_on
     ):
         self._rental_id = rental_id
+        self._rental_days = rental_days
+        self._extra_days = extra_days
         self._base_amount = base_amount
         self._extra_rental_charge = extra_rental_charge
         self._late_fee = late_fee
@@ -335,6 +344,14 @@ class Invoice:
         return self._rental_id
 
     @property
+    def rental_days(self):
+        return self._rental_days
+
+    @property
+    def extra_days(self):
+        return self._extra_days
+
+    @property
     def base_amount(self):
         return self._base_amount
 
@@ -347,10 +364,6 @@ class Invoice:
         return self._late_fee
 
     @property
-    def extra_rental_charge(self):
-        return getattr(self, "_extra_rental_charge", 0)
-
-    @property
     def final_amount(self):
         return self._final_amount
 
@@ -358,12 +371,14 @@ class Invoice:
         print("\n" + "=" * 50)
         print("FINAL INVOICE")
         print("=" * 50)
-        print(f"Rental ID      : {self.rental_id}")
-        print(f"Invoice Date   : {self._generated_on}")
-        print(f"Base Amount     : Rs. {self.base_amount:.2f}")
-        print(f"Extra Day Charge: Rs. {self.extra_rental_charge:.2f}")
-        print(f"Late Fee        : Rs. {self.late_fee:.2f}")
-        print(f"Final Amount    : Rs. {self.final_amount:.2f}")
+        print(f"Rental ID        : {self.rental_id}")
+        print(f"Invoice Date     : {self._generated_on}")
+        print(f"Days Rented      : {self.rental_days}")
+        print(f"Extra Days       : {self.extra_days}")
+        print(f"Base Amount      : Rs. {self.base_amount:.2f}")
+        print(f"Extra Day Charge : Rs. {self.extra_rental_charge:.2f}")
+        print(f"Late Fee         : Rs. {self.late_fee:.2f}")
+        print(f"Final Amount     : Rs. {self.final_amount:.2f}")
         print("=" * 50)
 
 
@@ -435,6 +450,10 @@ class Rental:
         return self._late_fee
 
     @property
+    def extra_days(self):
+        return getattr(self, "_extra_days", 0)
+
+    @property
     def final_amount(self):
         return self._final_amount
 
@@ -470,11 +489,18 @@ class Rental:
             self._final_amount
         ) = self.calculate_final_amount(return_date)
 
+        self._extra_days = max(
+            0,
+            (return_date - self._expected_return_date).days
+        )
+
         self._vehicle.mark_as_available(return_date)
         self._status = "Completed"
 
         self._invoice = Invoice(
             self.rental_id,
+            self._days,
+            self._extra_days,
             self._base_amount,
             self._extra_rental_charge,
             self._late_fee,
@@ -712,7 +738,7 @@ def rent_for_customer(service, customer, rental_number):
             print(f"Type     : {vehicle.vehicle_type()}")
             print(f"Days     : {days}")
             print(f"Amount   : Rs. {rental.base_amount:.2f}")
-            print(f"Expected return date: {rental.expected_return_date}")
+            print(f"Available again from: {rental.expected_return_date}")
             return rental
 
         except (ValidationError, VehicleUnavailableError, PaymentError) as error:
@@ -773,24 +799,24 @@ def cli_demo():
     # Add customers
     # ----------------------------
     customers = [
-                Customer(
-                    "C101",
-                    "Ankit Singh",
-                    "ankit@example.com",
-                    "DL-101"
-                ),
-                Customer(
-                    "C102",
-                    "Shahbaz Athar",
-                    "shahbaz@example.com",
-                    "DL-102"
-                ),
-                Customer(
-                    "C103",
-                    "Ashish Tandi",
-                    "ashish@example.com",
-                    "DL-103"
-                )
+                    Customer(
+                        "C101",
+                        "Ankit Singh",
+                        "ankit@example.com",
+                        "DL-101"
+                    ),
+                    Customer(
+                        "C102",
+                        "Shahbaz Athar",
+                        "shahbaz@example.com",
+                        "DL-102"
+                    ),
+                    Customer(
+                        "C103",
+                        "Ashish Tandi",
+                        "ashish@example.com",
+                        "DL-103"
+                    )
     ]
 
     for customer in customers:
@@ -877,6 +903,8 @@ def cli_demo():
         total_extra_rental = 0
         total_late_fee = 0
         total_final = 0
+        total_rental_days = 0
+        total_extra_days = 0
 
         for rental in customer.rental_history:
 
@@ -921,19 +949,22 @@ def cli_demo():
             total_extra_rental += invoice.extra_rental_charge
             total_late_fee += invoice.late_fee
             total_final += invoice.final_amount
+            total_rental_days += rental.days
+            total_extra_days += rental.extra_days
 
         print("\n" + "-" * 60)
         print("CUSTOMER FINAL INVOICE")
         print("-" * 60)
-        print(f"Customer ID    : {customer.customer_id}")
-        print(f"Customer Name  : {customer.name}")
-        print(f"Vehicles rented: {len(customer.rental_history)}")
+        print(f"Customer ID     : {customer.customer_id}")
+        print(f"Customer Name   : {customer.name}")
+        print(f"Vehicles rented : {len(customer.rental_history)}")
+        print(f"Days rented     : {total_rental_days}")
+        print(f"Extra days      : {total_extra_days}")
         print(f"Base amount     : Rs. {total_base:.2f}")
         print(f"Extra day charge: Rs. {total_extra_rental:.2f}")
         print(f"Late fee        : Rs. {total_late_fee:.2f}")
         print(f"Final amount    : Rs. {total_final:.2f}")
         print("-" * 60)
-        print()
 
     # ----------------------------
     # Vehicles available after
