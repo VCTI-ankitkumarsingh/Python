@@ -316,9 +316,13 @@ class Customer:
 # ----------------------------
 
 class Invoice:
-    def __init__(self, rental_id, base_amount, late_fee, final_amount, generated_on):
+    def __init__(
+        self, rental_id, base_amount, extra_rental_charge,
+        late_fee, final_amount, generated_on
+    ):
         self._rental_id = rental_id
         self._base_amount = base_amount
+        self._extra_rental_charge = extra_rental_charge
         self._late_fee = late_fee
         self._final_amount = final_amount
         self._generated_on = generated_on
@@ -335,8 +339,16 @@ class Invoice:
         return self._base_amount
 
     @property
+    def extra_rental_charge(self):
+        return self._extra_rental_charge
+
+    @property
     def late_fee(self):
         return self._late_fee
+
+    @property
+    def extra_rental_charge(self):
+        return getattr(self, "_extra_rental_charge", 0)
 
     @property
     def final_amount(self):
@@ -348,9 +360,10 @@ class Invoice:
         print("=" * 50)
         print(f"Rental ID      : {self.rental_id}")
         print(f"Invoice Date   : {self._generated_on}")
-        print(f"Base Amount    : Rs. {self.base_amount:.2f}")
-        print(f"Late Fee       : Rs. {self.late_fee:.2f}")
-        print(f"Final Amount   : Rs. {self.final_amount:.2f}")
+        print(f"Base Amount     : Rs. {self.base_amount:.2f}")
+        print(f"Extra Day Charge: Rs. {self.extra_rental_charge:.2f}")
+        print(f"Late Fee        : Rs. {self.late_fee:.2f}")
+        print(f"Final Amount    : Rs. {self.final_amount:.2f}")
         print("=" * 50)
 
 
@@ -438,17 +451,24 @@ class Rental:
             (return_date - self._expected_return_date).days
         )
 
+        extra_rental_charge = late_days * self.vehicle.daily_rate
         late_fee = late_days * 0.20 * self.vehicle.daily_rate
-        final_amount = self._base_amount + late_fee
+        final_amount = (
+            self._base_amount + extra_rental_charge + late_fee
+        )
 
-        return late_fee, final_amount
+        return extra_rental_charge, late_fee, final_amount
 
     def complete_rental(self, return_date):
         if self._status == "Completed":
             raise RentalError("Rental has already been completed.")
 
         self._actual_return_date = return_date
-        self._late_fee, self._final_amount = self.calculate_final_amount(return_date)
+        (
+            self._extra_rental_charge,
+            self._late_fee,
+            self._final_amount
+        ) = self.calculate_final_amount(return_date)
 
         self._vehicle.mark_as_available(return_date)
         self._status = "Completed"
@@ -456,6 +476,7 @@ class Rental:
         self._invoice = Invoice(
             self.rental_id,
             self._base_amount,
+            self._extra_rental_charge,
             self._late_fee,
             self._final_amount,
             return_date
@@ -691,7 +712,7 @@ def rent_for_customer(service, customer, rental_number):
             print(f"Type     : {vehicle.vehicle_type()}")
             print(f"Days     : {days}")
             print(f"Amount   : Rs. {rental.base_amount:.2f}")
-            print(f"Available again from: {rental.expected_return_date}")
+            print(f"Expected return date: {rental.expected_return_date}")
             return rental
 
         except (ValidationError, VehicleUnavailableError, PaymentError) as error:
@@ -752,24 +773,24 @@ def cli_demo():
     # Add customers
     # ----------------------------
     customers = [
-            Customer(
-                "C101",
-                "Ankit Singh",
-                "ankit@example.com",
-                "DL-101"
-            ),
-            Customer(
-                "C102",
-                "Shahbaz Athar",
-                "shahbaz@example.com",
-                "DL-102"
-            ),
-            Customer(
-                "C103",
-                "Ashish Tandi",
-                "ashish@example.com",
-                "DL-103"
-            )
+                Customer(
+                    "C101",
+                    "Ankit Singh",
+                    "ankit@example.com",
+                    "DL-101"
+                ),
+                Customer(
+                    "C102",
+                    "Shahbaz Athar",
+                    "shahbaz@example.com",
+                    "DL-102"
+                ),
+                Customer(
+                    "C103",
+                    "Ashish Tandi",
+                    "ashish@example.com",
+                    "DL-103"
+                )
     ]
 
     for customer in customers:
@@ -853,6 +874,7 @@ def cli_demo():
             continue
 
         total_base = 0
+        total_extra_rental = 0
         total_late_fee = 0
         total_final = 0
 
@@ -896,6 +918,7 @@ def cli_demo():
             )
 
             total_base += invoice.base_amount
+            total_extra_rental += invoice.extra_rental_charge
             total_late_fee += invoice.late_fee
             total_final += invoice.final_amount
 
@@ -905,10 +928,12 @@ def cli_demo():
         print(f"Customer ID    : {customer.customer_id}")
         print(f"Customer Name  : {customer.name}")
         print(f"Vehicles rented: {len(customer.rental_history)}")
-        print(f"Base amount    : Rs. {total_base:.2f}")
-        print(f"Late fee       : Rs. {total_late_fee:.2f}")
-        print(f"Final amount   : Rs. {total_final:.2f}")
+        print(f"Base amount     : Rs. {total_base:.2f}")
+        print(f"Extra day charge: Rs. {total_extra_rental:.2f}")
+        print(f"Late fee        : Rs. {total_late_fee:.2f}")
+        print(f"Final amount    : Rs. {total_final:.2f}")
         print("-" * 60)
+        print()
 
     # ----------------------------
     # Vehicles available after

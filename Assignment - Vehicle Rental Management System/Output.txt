@@ -1,4 +1,4 @@
-PS C:\Users\ankitkumar.singh\AppData\Local\Programs\Microsoft VS Code> & C:\Users\ankitkumar.singh\AppData\Local\Programs\Python\Python314\python.exe c:/Users/ankitkumar.singh/Downloads/vehicle_rental_management_system_minimal_submission/vehicle_rental_management_system/vehicle_rental_system.py
+PS C:\Users\ankitkumar.singh\AppData\Local\Programs\Microsoft VS Code> & C:\Users\ankitkumar.singh\AppData\Local\Programs\Python\Python314\python.exe "c:/Users/ankitkumar.singh/OneDrive - VCTI/Desktop/Python/Assignment - Vehicle Rental Management System/vehicle_rental_system.py"
 
 ============================================================
 Customer: Ankit Singh
@@ -20,23 +20,23 @@ Select vehicle type: 3
 
 Available Vans
 ----------------------------------------------------------------------
-1. V103 | Tata Winger | Rs. 3000.00/day | Available from: 2026-08-26
+1. V103 | Tata Winger | Rs. 3000.00/day | Available from: 2026-08-27
 Select vehicle: 1
-Enter rental days: 6
+Enter rental days: 4
 
 Payment Method
 1. Card
 2. UPI
 Select payment method: 2
-UPI payment processed for Rs. 18500.00
+UPI payment processed for Rs. 12500.00
 
 Rental confirmed successfully.
 Customer : Ankit Singh
 Vehicle  : V103
 Type     : Van
-Days     : 6
-Amount   : Rs. 18500.00
-Available again from: 2026-09-01
+Days     : 4
+Amount   : Rs. 12500.00
+Expected return date: 2026-08-31
 
 Vehicle 2 of 2 for Ankit Singh
 
@@ -48,28 +48,28 @@ Available Vehicle Types
 ----------------------------------------
 1. Car
 2. Bike
-Select vehicle type: 1
+Select vehicle type: 2
 
-Available Cars
+Available Bikes
 ----------------------------------------------------------------------
-1. V101 | Toyota Camry | Rs. 2000.00/day | Available from: 2026-08-26
-2. V104 | Honda City | Rs. 1800.00/day | Available from: 2026-08-26
+1. V102 | Yamaha FZ | Rs. 700.00/day | Available from: 2026-08-27
+2. V105 | Honda Shine | Rs. 600.00/day | Available from: 2026-08-27
 Select vehicle: 2
-Enter rental days: 5
+Enter rental days: 6
 
 Payment Method
 1. Card
 2. UPI
 Select payment method: 1
-Card payment processed for Rs. 9000.00
+Card payment processed for Rs. 3420.00
 
 Rental confirmed successfully.
 Customer : Ankit Singh
-Vehicle  : V104
-Type     : Car
-Days     : 5
-Amount   : Rs. 9000.00
-Available again from: 2026-08-31
+Vehicle  : V105
+Type     : Bike
+Days     : 6
+Amount   : Rs. 3420.00
+Expected return date: 2026-09-02
 
 ============================================================
 Customer: Shahbaz Athar
@@ -90,24 +90,23 @@ Select vehicle type: 2
 
 Available Bikes
 ----------------------------------------------------------------------
-1. V102 | Yamaha FZ | Rs. 700.00/day | Available from: 2026-08-26
-2. V105 | Honda Shine | Rs. 600.00/day | Available from: 2026-08-26
+1. V102 | Yamaha FZ | Rs. 700.00/day | Available from: 2026-08-27
 Select vehicle: 1
-Enter rental days: 5
+Enter rental days: 6
 
 Payment Method
 1. Card
 2. UPI
 Select payment method: 1
-Card payment processed for Rs. 3500.00
+Card payment processed for Rs. 3990.00
 
 Rental confirmed successfully.
 Customer : Shahbaz Athar
 Vehicle  : V102
 Type     : Bike
-Days     : 5
-Amount   : Rs. 3500.00
-Available again from: 2026-08-31
+Days     : 6
+Amount   : Rs. 3990.00
+Expected return date: 2026-09-02
 
 ============================================================
 Customer: Ashish Tandi
@@ -123,42 +122,42 @@ Rental for: Ashish Tandi
 Available Vehicle Types
 ----------------------------------------
 1. Car
-2. Bike
-Select vehicle type: 2
+Select vehicle type: 1
 
-Available Bikes
+Available Cars
 ----------------------------------------------------------------------
-1. V105 | Honda Shine | Rs. 600.00/day | Available from: 2026-08-26
-Select vehicle: 1
-Enter rental days: 7
+1. V101 | Toyota Camry | Rs. 2000.00/day | Available from: 2026-08-27
+2. V104 | Honda City | Rs. 1800.00/day | Available from: 2026-08-27
+Select vehicle: 2
+Enter rental days: 6
 
 Payment Method
 1. Card
 2. UPI
-Select payment method: 2
-UPI payment processed for Rs. 3990.00
+Select payment method: 1
+Card payment processed for Rs. 10800.00
 
 Rental confirmed successfully.
 Customer : Ashish Tandi
-Vehicle  : V105
-Type     : Bike
-Days     : 7
-Amount   : Rs. 3990.00
-Available again from: 2026-09-02
+Vehicle  : V104
+Type     : Car
+Days     : 6
+Amount   : Rs. 10800.00
+Expected return date: 2026-09-02
 
 ============================================================
 RETURN VEHICLES / FINAL INVOICES
 ============================================================
 Customer Name   : Ankit Singh
 Vehicle         : V103 - Tata Winger (Van)
-Rental Start    : 2026-08-26
-Expected return : 2026-09-01
-Enter actual return date (YYYY-MM-DD): 2026-09-04
-Customer Name   : Ankit Singh
-Vehicle         : V104 - Honda City (Car)
-Rental Start    : 2026-08-26
+Rental Start    : 2026-08-27
 Expected return : 2026-08-31
-Enter actual return date (YYYY-MM-DD): 2026-09-02
+Enter actual return date (YYYY-MM-DD): 2026-09-03
+Customer Name   : Ankit Singh
+Vehicle         : V105 - Honda Shine (Bike)
+Rental Start    : 2026-08-27
+Expected return : 2026-09-02
+Enter actual return date (YYYY-MM-DD): 2026-09-03
 
 ------------------------------------------------------------
 CUSTOMER FINAL INVOICE
@@ -166,14 +165,16 @@ CUSTOMER FINAL INVOICE
 Customer ID    : C101
 Customer Name  : Ankit Singh
 Vehicles rented: 2
-Base amount    : Rs. 27500.00
-Late fee       : Rs. 2520.00
-Final amount   : Rs. 30020.00
+Base amount     : Rs. 15920.00
+Extra day charge: Rs. 9600.00
+Late fee        : Rs. 1920.00
+Final amount    : Rs. 27440.00
 ------------------------------------------------------------
+
 Customer Name   : Shahbaz Athar
 Vehicle         : V102 - Yamaha FZ (Bike)
-Rental Start    : 2026-08-26
-Expected return : 2026-08-31
+Rental Start    : 2026-08-27
+Expected return : 2026-09-02
 Enter actual return date (YYYY-MM-DD): 2026-09-03
 
 ------------------------------------------------------------
@@ -182,13 +183,15 @@ CUSTOMER FINAL INVOICE
 Customer ID    : C102
 Customer Name  : Shahbaz Athar
 Vehicles rented: 1
-Base amount    : Rs. 3500.00
-Late fee       : Rs. 420.00
-Final amount   : Rs. 3920.00
+Base amount     : Rs. 3990.00
+Extra day charge: Rs. 700.00
+Late fee        : Rs. 140.00
+Final amount    : Rs. 4830.00
 ------------------------------------------------------------
+
 Customer Name   : Ashish Tandi
-Vehicle         : V105 - Honda Shine (Bike)
-Rental Start    : 2026-08-26
+Vehicle         : V104 - Honda City (Car)
+Rental Start    : 2026-08-27
 Expected return : 2026-09-02
 Enter actual return date (YYYY-MM-DD): 2026-09-03
 
@@ -198,10 +201,12 @@ CUSTOMER FINAL INVOICE
 Customer ID    : C103
 Customer Name  : Ashish Tandi
 Vehicles rented: 1
-Base amount    : Rs. 3990.00
-Late fee       : Rs. 120.00
-Final amount   : Rs. 4110.00
+Base amount     : Rs. 10800.00
+Extra day charge: Rs. 1800.00
+Late fee        : Rs. 360.00
+Final amount    : Rs. 12960.00
 ------------------------------------------------------------
+
 
 ============================================================
 VEHICLE STATUS AFTER RETURNS
@@ -209,22 +214,22 @@ VEHICLE STATUS AFTER RETURNS
 
 Vehicle Availability
 ----------------------------------------------------------------------------------------------------
-V101 | Car | Toyota | Camry | Rs. 2000.00/day | Available | Available from: 2026-08-26
-V104 | Car | Honda | City | Rs. 1800.00/day | Rented | Available from: 2026-09-02
+V101 | Car | Toyota | Camry | Rs. 2000.00/day | Available | Available from: 2026-08-27
+V104 | Car | Honda | City | Rs. 1800.00/day | Rented | Available from: 2026-09-03
 V102 | Bike | Yamaha | FZ | Rs. 700.00/day | Rented | Available from: 2026-09-03
 V105 | Bike | Honda | Shine | Rs. 600.00/day | Rented | Available from: 2026-09-03
-V103 | Van | Tata | Winger | Rs. 3000.00/day | Rented | Available from: 2026-09-04
+V103 | Van | Tata | Winger | Rs. 3000.00/day | Rented | Available from: 2026-09-03
 
 Rental History - Ankit Singh
 ----------------------------------------------------------------------
-R001 | V103 | Van | Status: Completed | Final Amount: Rs. 20300.00
-R002 | V104 | Car | Status: Completed | Final Amount: Rs. 9720.00
+R001 | V103 | Van | Status: Completed | Final Amount: Rs. 23300.00
+R002 | V105 | Bike | Status: Completed | Final Amount: Rs. 4140.00
 
 Rental History - Shahbaz Athar
 ----------------------------------------------------------------------
-R003 | V102 | Bike | Status: Completed | Final Amount: Rs. 3920.00
+R003 | V102 | Bike | Status: Completed | Final Amount: Rs. 4830.00
 
 Rental History - Ashish Tandi
 ----------------------------------------------------------------------
-R004 | V105 | Bike | Status: Completed | Final Amount: Rs. 4110.00
+R004 | V104 | Car | Status: Completed | Final Amount: Rs. 12960.00
 PS C:\Users\ankitkumar.singh\AppData\Local\Programs\Microsoft VS Code> 
