@@ -1,0 +1,17 @@
+2026-08-31 09:19:58,935 - INFO - Application started.
+2026-08-31 09:19:58,935 - INFO - Student processing started.
+2026-08-31 09:20:00,980 - INFO - Student name received.
+2026-08-31 09:20:04,263 - ERROR - Invalid number of subjects entered.
+2026-08-31 09:20:07,624 - DEBUG - Number of subjects entered: 2
+2026-08-31 09:20:09,342 - ERROR - Invalid marks entered for subject 1: Marks must be between 0 and 100.
+2026-08-31 09:20:11,901 - INFO - Mark entered successfully for subject 1: 80.00
+2026-08-31 09:20:12,998 - INFO - Mark entered successfully for subject 2: 10.00
+2026-08-31 09:20:12,998 - WARNING - Mark for subject 2 is below passing range: 10.00
+2026-08-31 09:20:12,998 - INFO - Marks entered successfully.
+2026-08-31 09:20:12,998 - INFO - Average calculation completed: 45.00
+2026-08-31 09:20:12,998 - INFO - Result determined: Fail
+2026-08-31 09:20:12,999 - INFO - Student statistics calculated successfully.
+2026-08-31 09:20:13,000 - DEBUG - Completed processing for student: ANkit
+2026-08-31 09:20:13,000 - INFO - Student processing completed.
+2026-08-31 09:20:15,730 - INFO - Application completed.
+2026-08-31 09:20:15,731 - DEBUG - Final cleanup reached in main().

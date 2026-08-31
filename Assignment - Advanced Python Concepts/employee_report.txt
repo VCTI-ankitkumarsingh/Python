@@ -1,0 +1,7 @@
+Employee Report
+===============
+Department: HR
+Minimum Salary: 40000
+102 - Mary - HR - 45000
+106 - Lisa - HR - 48000
+Average Salary: 46500.00
